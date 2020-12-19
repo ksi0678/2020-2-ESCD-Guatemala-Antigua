@@ -9,7 +9,7 @@
 
 
 ### 구현 결과물
-![구현 결과물 이미지](../master/results/Result.png)
+![구현 결과물 이미지](https://github.com/CSID-DGU/2020-2-ESCD-Guatemala-Antigua/blob/master/Frontend/results/Result.png)
 
 
 ### 기술 스택
