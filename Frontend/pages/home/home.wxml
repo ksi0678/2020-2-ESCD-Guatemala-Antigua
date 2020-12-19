@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <image class="header__logo" src="{{logoUrl}}" mode="aspectFit"></image>
+    <text class="header__text">{{logoText}}</text>
+  </view>
+
+  <view class="body">
+    <text class="body__text">{{bodyText}}</text>
+  </view>
+
+  <view class="card">
+    <!-- userInfo가 없고, getUserInfo API가 사용가능한 경우...bindgetuserinfo Attribute에 함수 설정 -->
+    <block wx:if="{{!hasUserInfo && canIUse}}">
+      <button open-type="getUserInfo" bindgetuserinfo="fetchUserInfo"
+      style="margin: auto"> 获取头像昵称 </button>
+    </block>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">欢迎, {{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="detail__text">
+      <text>你对什么过敏吗?</text>
+    </view>
+    
+    <view class="detail__img__wrapper">
+      <image class="detail__img" src="{{glutenUrl}}" mode="aspectFit"></image>
+      <image class="detail__img" src="{{almondUrl}}" mode="aspectFit"></image>
+      <image class="detail__img" src="{{milkUrl}}" mode="aspectFit"></image>
+      <image class="detail__img" src="{{eggUrl}}" mode="aspectFit"></image>
+    </view>
+
+    <view class="detail__description">
+      <text>通过使用此应用程序，您可以避免可能对您产生食物过敏的成分。它基本上显示了导致食物过敏的食品成分列表，但是如果您注册了自己的过敏列表，它将自动让您知道要避免使用哪种菜肴。</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="detail__text">
+      <text>要知道你在哪里。</text>
+    </view>
+    
+    <view class="detail__img__wrapper">
+      <!-- aspectiFill -> widthFix  -->
+      <image style="width: 80vw;" src="{{mapUrl}}" mode="widthFix"></image>
+    </view>
+
+    <view class="detail__description">
+      <text>查看校园内各种便利设施的信息。所有与地图相关的功能均通过腾讯Maps API提供。</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="detail__text">
+      <text>要知道你在哪里。</text>
+    </view>
+    
+    <view class="detail__img__wrapper">
+      <!-- aspectiFill -> widthFix  -->
+      <image class="detail__img" style="width: 10vw;" src="{{chinaUrl}}" mode="widthFix"></image>
+      <image class="detail__img" style="width: 5vw;" src="{{arrowUrl}}" mode="widthFix"></image>
+      <image class="detail__img" style="width: 10vw;" src="{{koreaUrl}}" mode="widthFix"></image>
+    </view>
+
+    <view class="detail__description">
+      <text>还提供了一个简单的翻译功能。在校园中需要很小的通信时可以使用它。</text>
+    </view>
+  </view>
+</view>
+<!-- <view class="container">
+  <mp-tabbar class="tapBarStyle" list="{{list}}" bindchange="tabChange"></mp-tabbar>
+</view> -->

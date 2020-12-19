@@ -1,0 +1,21 @@
+<!--pages/translation/translation.wxml-->
+<view class="container">
+  <image class="detail__img" src="{{cnToKo ? koreaUrl : chinaUrl}}" mode="widthFix"></image>
+  <view class="translator-card">
+    <view class="toolView">
+      <switch class="detail__switch" bindtap="changeTranslate" />
+      <text class="card-title-first">请写下你想说的!</text>
+    </view>
+    <textarea id="transText" bindinput="putText" class="text-form" type="text" placeholder="内容"/>
+  </view>
+
+  <view bindtap="{{cnToKo ? 'translateText' : 'translateTexttwo'}}">
+    <image class="arrow" src="{{arrowDownUrl}}"/>
+  </view>
+
+  <image class="detail__img" src="{{cnToKo ? chinaUrl : koreaUrl}}" mode="widthFix"></image>
+  <view class="translator-card">
+    <text class="card-title">翻译结果</text>
+    <textarea class="text-form" value="{{resultText}}" disabled="true"></textarea>
+  </view>
+</view>

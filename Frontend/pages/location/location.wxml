@@ -1,0 +1,82 @@
+<!--pages/menu/menu.wxml-->
+<view class="container">
+  <view class="place-info">
+    <view>
+      <text style="font-weight: 600; font-size: 24px;">设施清单</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-x="true" class="filter">
+    <view id="0" class="filter-tab {{filterNumber == 0 ? 'selected' : ''}}" bindtap="onFilterChange">所有</view>
+    <view id="1" class="filter-tab {{filterNumber == 1 ? 'selected' : ''}}" bindtap="onFilterChange">餐厅</view>
+    <view id="2" class="filter-tab {{filterNumber == 2 ? 'selected' : ''}}" bindtap="onFilterChange">医务室</view>
+    <view id="3" class="filter-tab {{filterNumber == 3 ? 'selected' : ''}}" bindtap="onFilterChange">ATM</view>
+    <view id="4" class="filter-tab {{filterNumber == 4 ? 'selected' : ''}}" bindtap="onFilterChange">银行</view>
+    <view id="5" class="filter-tab {{filterNumber == 5 ? 'selected' : ''}}" bindtap="onFilterChange">方便</view>
+    <view id="6" class="filter-tab {{filterNumber == 6 ? 'selected' : ''}}" bindtap="onFilterChange">邮政局</view>
+    <view id="7" class="filter-tab {{filterNumber == 7 ? 'selected' : ''}}" bindtap="onFilterChange">咖啡店</view>
+  </scroll-view>
+
+  <!-- 메뉴 출력을 위한 Y축 스크롤 View -->
+  <scroll-view enable-flex="true" scroll-y class="facility">
+    <!-- 메뉴 JSON 배열 렌더링 -->
+    <block wx:for="{{facility}}" wx:key="facilityId">
+      <!-- WXS 태그를 사용해, 필터링 기능 구현 -->
+      <wxs module="filtering">
+        var filteredFacility = function(category, filter) {
+          // 전체 필터인 경우, true를 반환한다.
+          if(filter === "전체") {
+            return true;
+          }
+          // 그 외의 필터인 경우,
+          else {
+            // 필터와 일치하는 항목이 존재하면 false를 반환한다.
+            if(category != filter)
+              return false
+            return true
+          }
+        }
+        // 모듈을 export 한다.
+        module.exports = {
+          filteredMenu: filteredFacility
+        }
+      </wxs>
+      <block wx:if="{{filtering.filteredMenu(item.category, filter[filterNumber])}}">
+        <view class="facility-card">
+          <view class="facility-name">
+            <text>{{item.name}}</text>
+          </view>
+
+          <view class="facility-location">
+            <text>{{item.location}}</text>
+          </view>
+
+          <view class="facility-time">
+            {{item.operatingTime}}
+          </view>
+
+          <view class="facility-button">
+            <text
+              wx:if="{{item.category == '식당'}}"
+              id="{{item.id}}" 
+              class="button"
+              bindtap="{{item.isOperating ? 'gotoMenu' : ''}}"
+              style="background-color : {{item.isOperating ? '' : 'lightgrey'}};"
+            >{{ item.isOperating ? '选单检视' : '作业期限'}}
+            </text>
+
+            <text
+              wx:else
+              id="{{item.id}}" 
+              class="button"
+              style="background-color : {{ item.isOperating ? 'rgb(70, 139, 85)' : 'lightgrey' }};"
+            >{{ item.isOperating ? '操作' : '作业期限'}}
+            </text>
+          </view>
+        </view>
+      </block>
+    </block>
+    <!-- 마지막 카드 짤림 현상 방지를 위해 빈 view 추가 -->
+    <view style="height: 10rpx;"></view>
+  </scroll-view>
+</view>
